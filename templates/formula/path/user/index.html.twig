@@ -1,0 +1,11 @@
+{% extends 'formula/base.html.twig' %}
+
+{% block content %}
+    <div class="f-container">
+        {% include 'formula/components/species/user/grid.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('build/user.css') }}">
+{% endblock %}

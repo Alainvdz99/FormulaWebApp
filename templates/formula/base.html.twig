@@ -1,0 +1,33 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Squada+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/standard.css') }}">
+    {% block style %}{% endblock %}
+</head>
+<body>
+<header>
+    {% block header %}
+        {% include 'formula/components/species/header/sideNav.html.twig' %}
+    {% endblock %}
+</header>
+
+<section id="content">
+    {% block content %}{% endblock %}
+</section>
+
+<footer>
+    {% block footer %}
+    {% endblock %}
+</footer>
+
+<script src="{{ asset('build/app.js') }}"></script>
+{% block javascripts %}
+
+{% endblock %}
+</body>
+</html>

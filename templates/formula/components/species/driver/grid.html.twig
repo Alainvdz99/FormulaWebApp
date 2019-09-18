@@ -1,0 +1,22 @@
+<div class="s-driverGrid">
+    <h1>Drivers</h1>
+    <table class="s-driverGrid__table">
+        <thead class="s-driverGrid__table__head">
+        <tr>
+            <td>Naam</td>
+            <td>Team</td>
+        </tr>
+        </thead>
+        <tbody class="s-driverGrid__table__body">
+        {% for driver in drivers %}
+            <tr>
+                <td>{{ driver.name }}</td>
+                <td>{{ driver.team.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="s-driverGrid__actions">
+        <a class="btn-red" href="{{ path('create_driver') }}">+ Add driver</a>
+    </div>
+</div>

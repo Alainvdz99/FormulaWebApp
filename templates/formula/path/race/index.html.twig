@@ -1,0 +1,13 @@
+{% extends 'formula/base.html.twig' %}
+
+{% block content %}
+    {% for race in races %}
+        <div>
+            <span>{{ race.name }}</span>
+            <span>{{ race.location }}</span>
+            <a href="{{ path('race_prediction_create', {
+                'raceId' : race.id
+            }) }}">Voorspel!</a>
+        </div>
+    {% endfor %}
+{% endblock %}

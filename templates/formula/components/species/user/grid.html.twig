@@ -1,0 +1,19 @@
+<div class="s-userGrid">
+    <h1>Stand</h1>
+    <table class="s-userGrid__table">
+        <thead class="s-userGrid__table__head">
+            <tr>
+                <td>Naam</td>
+                <td>Totale Punten</td>
+            </tr>
+        </thead>
+        <tbody class="s-userGrid__table__body">
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.fullname }}</td>
+                    <td>{{ user.totalPoints }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

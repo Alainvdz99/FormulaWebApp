@@ -1,0 +1,30 @@
+.s-sideNav {
+  height: 100%;
+  width: 15%;
+  background: #e10600;
+  position: fixed;
+  &__logo {
+    margin-top: 2rem;
+    padding: 1rem;
+  }
+
+  &__links {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    &__link {
+      padding: 1.5rem 0;
+      width: 100%;
+      > span {
+        color: #ffffff;
+        font-size: 2rem;
+        padding-left: 3rem;
+        font-family: 'Squada One', cursive;
+      }
+      &:hover {
+        background: #000000;
+      }
+    }
+  }
+}

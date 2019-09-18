@@ -1,0 +1,14 @@
+version: "3"
+services:
+    offloader:
+        image: registry.gitlab.com/toppy-webshop/docker-images/nginx1.15-alpine-offloader-dev:latest
+        ports:
+            - 443:443
+            - 80:80
+        networks:
+            - default
+
+networks:
+    default:
+        external:
+            name: toppy_webnet

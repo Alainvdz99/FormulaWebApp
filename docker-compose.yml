@@ -1,0 +1,78 @@
+version: "3"
+services:
+  nginx_formula:
+    image: registry.gitlab.com/toppy-webshop/docker-images/nginx1.15-alpine-base:latest
+    depends_on:
+      - fpm
+    ports:
+      - 80:80
+    volumes:
+      - ./public:/app/public
+      - ./development/docker/nginx/symfony.conf:/etc/nginx/sites-enabled/symfony.conf
+    networks:
+      - webnet
+      - default
+    environment:
+      - APPLICATION_POOL_FCGI_SERVER=fpm:9000
+      - APPLICATION_FASTCGI_READ_TIMEOUT=600
+      - APPLICATION_FASTCGI_CONNECT_TIMEOUT=30
+
+  fpm:
+    image: registry.gitlab.com/toppy-webshop/docker-images/php7.2-fpm-alpine-dev:latest
+    ports:
+      - 9000
+      - 587
+    depends_on:
+      - db
+    networks:
+      - webnet
+      - dbnet
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
+      - ./development/docker/fpm/30-postfix.sh:/opt/docker/init.d/30-postfix.sh
+
+  cli:
+    image: registry.gitlab.com/toppy-webshop/docker-images/php7.2-cli-alpine-dev
+    ports:
+      - 9000
+      - 587
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - ~/.composer/cache:/home/app/.composer/cache
+      - ./:/app
+      - ./development/docker/fpm/30-postfix.sh:/opt/docker/init.d/30-postfix.sh
+    networks:
+      - webnet
+      - dbnet
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3308:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    command:
+      - --max_allowed_packet=65011712
+      - --innodb_buffer_pool_size=2G
+    networks:
+      - dbnet
+    environment:
+      - MYSQL_ROOT_PASSWORD=formula
+      - MYSQL_DATABASE=formula
+      - MYSQL_USER=formula
+      - MYSQL_PASSWORD=formula
+
+volumes:
+  dbdata:
+
+networks:
+  default:
+    external:
+      name: toppy_webnet
+  webnet:
+  dbnet:

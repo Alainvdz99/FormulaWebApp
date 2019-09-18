@@ -1,0 +1,37 @@
+.s-driverGrid {
+  padding-top: 4rem;
+  > h1 {
+    font-size: 3rem;
+  }
+  &__table {
+    width: 100%;
+    border-top: 8px solid #e10600;
+    border-left: 8px solid #e10600;
+    border-radius: 0.25rem;
+    &__head {
+      tr {
+        td {
+          padding: 1rem;
+        }
+
+      }
+
+    }
+    &__body {
+      tr {
+        td {
+          padding: 1rem;
+
+        }
+      }
+      tr:nth-child(odd) {
+        background: #f4f4f4;
+      }
+    }
+  }
+  &__actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

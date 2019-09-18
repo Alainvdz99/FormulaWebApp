@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+}
+
+body, a, p, span, div, table, td {
+    font-family: Poppins, Helvetica, Arial, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Squada One', cursive;
+}
+
+a {
+    text-decoration: none;
+}
+
+.f-container {
+    margin: 0 auto;
+    max-width: 60rem;
+}
+
+.btn-red {
+    border-radius: 0.5rem;
+    border: none;
+    text-align: center;
+    padding: 12px 35px 12px 15px;
+    cursor: pointer;
+    color: #ffffff;
+    background: #e10600;
+    text-decoration: none;
+}
