@@ -1,5 +1,5 @@
 <nav class="s-sideNav">
-    <div>
+    <div class="wrapper">
         <div class="s-sideNav__logo">
             <img src="{{ asset('build/images/f1_logo.svg') }}" alt="">
         </div>
@@ -7,12 +7,23 @@
             <a class="s-sideNav__links__link" href="{{ path('race') }}">
                 <span>Races</span>
             </a>
+            <a class="s-sideNav__links__link" href="{{ path('special_prediction') }}">
+                <span>Voorspelling</span>
+            </a>
             <a class="s-sideNav__links__link" href="{{ path('driver') }}">
                 <span>Drivers</span>
             </a>
             <a class="s-sideNav__links__link" href="{{ path('users') }}">
-                <span>Users</span>
+                <span>Stand</span>
             </a>
         </div>
+    </div>
+    <div class="s-sideNav__background">
+    </div>
+    <div class="s-sideNav__hamburger">
+        <i class="fa fa-bars fa-2x"></i>
+    </div>
+    <div class="s-sideNav__close">
+        <i class="fa fa-times-circle fa-2x"></i>
     </div>
 </nav>

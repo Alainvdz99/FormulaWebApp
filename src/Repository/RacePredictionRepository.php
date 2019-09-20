@@ -19,22 +19,20 @@ class RacePredictionRepository extends ServiceEntityRepository
         parent::__construct($registry, RacePrediction::class);
     }
 
-    // /**
-    //  * @return RacePrediction[] Returns an array of RacePrediction objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param $race
+     * @return RacePrediction[] Returns an array of RacePrediction objects
+     */
+    public function findAllByRace($race)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('r.race = :race')
+            ->setParameter('race', $race)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?RacePrediction

@@ -1,11 +1,36 @@
 .s-sideNav {
-  height: 100%;
-  width: 15%;
-  background: #e10600;
   position: fixed;
-  &__logo {
-    margin-top: 2rem;
-    padding: 1rem;
+  z-index: 10;
+  height: calc(var(--vh, 1vh)*100);
+  left: -100%;
+  top: 0;
+  width: 100%;
+  > .wrapper {
+    width: 90%;
+    left: 0;
+    transition: all .2s ease-in-out;
+    z-index: 1;
+    position: relative;
+    background: #e10600;
+    height: 100%;
+  }
+  &.open {
+    > .wrapper {
+      overflow: auto;
+      left: 100%;
+    }
+    &__background {
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      height: calc(var(--vh, 1vh)*100);
+      background: rgba(0,0,0,.2);
+      width: 100vh;
+      position: fixed;
+    }
+  }
+  .s-sideNav__logo {
+    padding: 3rem 1rem 1rem;
   }
 
   &__links {
@@ -26,5 +51,58 @@
         background: #000000;
       }
     }
+  }
+
+  &__hamburger {
+    position: fixed;
+    top: 7%;
+    right: 5%;
+    cursor: pointer;
+  }
+  &.open .s-sideNav__hamburger {
+    display: none;
+  }
+
+  &__close {
+    display: none;
+    position: fixed;
+    top: 7%;
+    right: 5%;
+    cursor: pointer;
+    z-index: 999;
+  }
+  &.open .s-sideNav__close  {
+    display: block;
+  }
+}
+
+$s : 480px;
+$m : 768px;
+$l : 1024px;
+$xl : 1250px;
+
+@media only screen and (min-width: $m) {
+  .s-sideNav {
+    z-index: auto;
+    height: 100%;
+    left: auto;
+    top: auto;
+    width: 25%;
+    > .wrapper {
+      width: 100%;
+      left: auto;
+      transition: none;
+      z-index: 1;
+      position: static;
+    }
+    &__hamburger {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (min-width: $l) {
+  .s-sideNav {
+    width: 20%;
   }
 }

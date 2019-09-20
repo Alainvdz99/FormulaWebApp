@@ -51,7 +51,7 @@ class TeamController extends AbstractController implements CrudControllerInterfa
 
                 $manager->flush();
                 return $this->redirect(
-                    $this->generateUrl('team')
+                    $this->generateUrl('driver')
                 );
 
             } catch (\Throwable $e) {

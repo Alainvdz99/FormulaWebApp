@@ -3,16 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Race;
+use App\Entity\RacePrediction;
 use App\Entity\RaceResult;
 use App\Form\RaceResultType;
+use App\Service\RacePoints;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RaceResultController extends AbstractController
 {
     /**
-     * @Route("/race/{raceId}/raceresult/create", name="race_prediction_create")
+     * @Route("/race/{raceId}/raceresult/create", name="race_result_create")
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return mixed
      * @throws \Exception
@@ -20,8 +23,15 @@ class RaceResultController extends AbstractController
     public function create(Request $request, int $raceId)
     {
         $raceResult = new RaceResult();
+        $racePoints = new RacePoints();
 
         $race = $this->getRace($raceId);
+
+        /** @var \App\Repository\RacePredictionRepository $racePredictions */
+        $racePredictions = $this
+            ->getDoctrine()
+            ->getRepository(RacePrediction::class)
+            ->findAllByRace($race);
 
         $form = $this->createForm(
             RaceResultType::class,
@@ -41,17 +51,28 @@ class RaceResultController extends AbstractController
 
             $manager->persist($raceResult);
 
+            foreach ($racePredictions as $racePrediction) {
+                $predictonPoints = $racePoints->checkRacePredictionResults($raceResult, $racePrediction);
+                $user = $racePrediction->getUser();
+                $totalPoints = $user->getTotalPoints();
+
+                $newTotalPoints = $totalPoints + $predictonPoints;
+                $user->setTotalPoints($newTotalPoints);
+
+                $manager->persist($user);
+            }
+
             try {
                 $manager->flush();
                 return $this->redirect(
                     $this->generateUrl('race')
                 );
 
-            } catch (\Throwable $e) {
+            } catch (BadRequestHttpException $e) {
                 $this->addFlash(
                     'error',
                     sprintf(
-                        'Unable to create race resukt (Error: %s)',
+                        'Unable to create race result (Error: %s)',
                         $e->getMessage()
                     )
                 );

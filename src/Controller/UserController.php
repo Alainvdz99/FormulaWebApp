@@ -18,7 +18,7 @@ class UserController extends AbstractController
             ->getRepository(User::class)
             ->findBy([],
                 [
-                    'totalPoints' => 'ASC'
+                    'totalPoints' => 'DESC'
                 ]
 
             );

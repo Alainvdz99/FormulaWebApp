@@ -1,4 +1,4 @@
-.s-driverGrid {
+.s-specialPrediction {
   padding: 2rem 1rem;
   &__table {
     width: 100%;
@@ -41,7 +41,7 @@ $l : 1024px;
 $xl : 1250px;
 
 @media only screen and (min-width: $m) {
-  .s-driverGrid {
+  .s-specialPrediction {
     padding: 4rem 2rem;
 
   }

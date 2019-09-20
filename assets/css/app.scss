@@ -1,3 +1,8 @@
+$s : 480px;
+$m : 768px;
+$l : 1024px;
+$xl : 1250px;
+
 body {
     margin: 0;
 }
@@ -8,6 +13,22 @@ body, a, p, span, div, table, td {
 
 h1, h2, h3, h4 {
     font-family: 'Squada One', cursive;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+@media only screen and (min-width: $m) {
+    h1 {
+        font-size: 3.5rem;
+    }
+}
+
+@media only screen and (min-width: $l) {
+    h1 {
+        font-size: 4.5rem;
+    }
 }
 
 a {
@@ -21,11 +42,46 @@ a {
 
 .btn-red {
     border-radius: 0.5rem;
-    border: none;
+    border: 2px solid #e10600;
     text-align: center;
-    padding: 12px 35px 12px 15px;
+    padding: 12px 20px;
     cursor: pointer;
     color: #ffffff;
     background: #e10600;
     text-decoration: none;
+    transition: all 0.5s cubic-bezier(0.2, 0, 0.05, 1);
+    &:hover {
+        background: #ffffff;
+        color: black;
+    }
 }
+
+.btn-blue {
+    border-radius: 0.5rem;
+    border: 2px solid  #004C6C;
+    text-align: center;
+    padding: 12px 20px;
+    cursor: pointer;
+    color: #ffffff;
+    background: #004C6C;
+    text-decoration: none;
+    transition: all 0.5s cubic-bezier(0.2, 0, 0.05, 1);
+    &:hover {
+        background: #ffffff;
+        color: black;
+    }
+}
+
+@media only screen and (min-width: $m) {
+    .main-wrapper {
+        display: flex;
+        header {
+            flex: 1 1 25%;
+        }
+        #content {
+            flex: 1 1 75%;
+        }
+    }
+
+}
+

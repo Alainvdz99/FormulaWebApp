@@ -49,6 +49,12 @@ class Race
      */
     private $racePredictions;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive = false;
+
     public function __construct()
     {
         $this->racePredictions = new ArrayCollection();
@@ -152,6 +158,22 @@ class Race
 
     /**
      * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
+     * @return bool
      * @throws \Exception
      */
     public function isAvailable()
@@ -166,7 +188,7 @@ class Race
         $endDate =  $endDate->format("d-m-Y");
         $currentDate = $currentDate->format("d-m-Y");
 
-        if ($startDate < $currentDate && $endDate > $currentDate)
+        if ($startDate <= $currentDate && $endDate >= $currentDate)
         {
             $isAvailable = true;
         }

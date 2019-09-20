@@ -36,6 +36,7 @@ class User implements UserInterface
      */
     private $avatar;
 
+
     /**
      * @var int
      * @ORM\Column(type="integer", nullable=true)
@@ -204,4 +205,5 @@ class User implements UserInterface
 
         return $this;
     }
+
 }

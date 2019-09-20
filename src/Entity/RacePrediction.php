@@ -84,11 +84,6 @@ class RacePrediction implements PredictionInterface
      */
     private $isEnabled = true;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\RaceResult")
-     */
-    private $raceResult;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -264,22 +259,6 @@ class RacePrediction implements PredictionInterface
     public function setIsEnabled(bool $isEnabled): void
     {
         $this->isEnabled = $isEnabled;
-    }
-
-    /**
-     * @return \App\Entity\RaceResult
-     */
-    public function getRaceResult(): \App\Entity\RaceResult
-    {
-        return $this->raceResult;
-    }
-
-    /**
-     * @param \App\Entity\RaceResult $raceResult
-     */
-    public function setRaceResult(RaceResult $raceResult): void
-    {
-        $this->raceResult = $raceResult;
     }
 
 }

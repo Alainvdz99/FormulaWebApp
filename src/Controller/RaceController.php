@@ -17,9 +17,15 @@ class RaceController extends AbstractController implements CrudControllerInterfa
      */
     public function index()
     {
-        $races = $this->getDoctrine()
-                        ->getRepository(Race::class)
-                        ->findAll();
+        $races = $this
+            ->getDoctrine()
+            ->getRepository(Race::class)
+            ->findBy([],
+                [
+                    'raceDateStart' => 'ASC'
+                ]
+
+            );
 
         return $this->render('formula/path/race/index.html.twig', [
             'races' => $races,
@@ -30,6 +36,7 @@ class RaceController extends AbstractController implements CrudControllerInterfa
      * @Route("/race/create", name="create_race")
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function create(Request $request)
     {
@@ -48,6 +55,7 @@ class RaceController extends AbstractController implements CrudControllerInterfa
                 ->getDoctrine()
                 ->getManager();
 
+            $race->setIsActive($race->isAvailable());
             $manager->persist($race);
 
             try {

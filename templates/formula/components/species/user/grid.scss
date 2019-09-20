@@ -1,8 +1,5 @@
 .s-userGrid {
-  padding-top: 4rem;
-  > h1 {
-    font-size: 3rem;
-  }
+  padding: 2rem 1rem;
   &__table {
     width: 100%;
     border-top: 8px solid #e10600;
@@ -12,6 +9,7 @@
       tr {
         td {
           padding: 1rem;
+          font-weight: 700;
         }
 
       }
@@ -28,5 +26,17 @@
         background: #f4f4f4;
       }
     }
+  }
+}
+
+$s : 480px;
+$m : 768px;
+$l : 1024px;
+$xl : 1250px;
+
+@media only screen and (min-width: $m) {
+  .s-userGrid {
+    padding: 4rem 2rem;
+
   }
 }

@@ -1,4 +1,4 @@
-.s-driverGrid {
+.s-raceGrid {
   padding: 2rem 1rem;
   &__table {
     width: 100%;
@@ -30,7 +30,7 @@
   &__actions {
     margin-top: 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 
   }
 }
@@ -41,7 +41,7 @@ $l : 1024px;
 $xl : 1250px;
 
 @media only screen and (min-width: $m) {
-  .s-driverGrid {
+  .s-raceGrid {
     padding: 4rem 2rem;
 
   }
