@@ -34,6 +34,12 @@ class SpecialPredictionVote
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Race")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $race;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,4 +80,24 @@ class SpecialPredictionVote
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRace(): ?Race
+    {
+        return $this->race;
+    }
+
+    /**
+     * @param mixed $race
+     */
+    public function setRace(?Race $race): self
+    {
+        $this->race = $race;
+
+        return $this;
+    }
+
+
 }

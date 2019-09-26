@@ -27,17 +27,32 @@ class SpecialPredictionController extends AbstractController
             ->getRepository(SpecialPrediction::class)
             ->findSpecialPredictionsByAvailableRace();
 
-        $specialPredictionInput = new SpecialPredictionInput;
+        $specialPredictionVotes =  $this
+            ->getDoctrine()
+            ->getRepository(SpecialPredictionVote::class)
+            ->findBy([
+                'user' => $this->getUser(),
+                'race' => $this->getAvailableRace()
+            ]) ?? null;
+        $specialPredictionInput = new SpecialPredictionInput();
 
-        foreach ($specialPredictions as $specialPrediction)
-        {
-            $specialPredictionVote = new SpecialPredictionVote();
+        if (!$specialPredictionVotes) {
+            foreach ($specialPredictions as $specialPrediction)
+            {
+                $specialPredictionVote = new SpecialPredictionVote();
 
-            $specialPredictionVote->setSpecialPrediction($specialPrediction);
-            $specialPredictionVote->setUser($this->getUser());
+                $specialPredictionVote->setSpecialPrediction($specialPrediction);
+                $specialPredictionVote->setUser($this->getUser());
+                $specialPredictionVote->setRace($this->getAvailableRace());
 
-            $specialPredictionInput->addSpecialPredictionVote($specialPredictionVote);
+                $specialPredictionInput->addSpecialPredictionVote($specialPredictionVote);
 
+            }
+        } else {
+            foreach ($specialPredictionVotes as $predictionVote)
+            {
+                $specialPredictionInput->addSpecialPredictionVote($predictionVote);
+            }
         }
 
         $specialPredictionInputForm = $this
@@ -76,7 +91,7 @@ class SpecialPredictionController extends AbstractController
 
         return $this->render('formula/path/specialPrediction/index.html.twig', [
             'specialPredictions' => $specialPredictions,
-            'form' => $specialPredictionInputForm->createView()
+            'form' => $specialPredictionInputForm->createView(),
         ]);
     }
 
