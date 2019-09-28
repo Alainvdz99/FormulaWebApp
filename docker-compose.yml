@@ -69,10 +69,6 @@ services:
 
 volumes:
   dbdata:
-
 networks:
-  default:
-    external:
-      name: toppy_webnet
   webnet:
   dbnet:

@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class TeamType extends AbstractType
 {
@@ -17,8 +18,14 @@ class TeamType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'team.name.label'
             ])
+            ->add('raceCarFile', VichFileType::class , [
+                'label' => 'team.raceCar.label'
+            ])
+            ->add('color', TextType::class, [
+                'label' => 'team.color.label'
+            ])
             ->add('save', SubmitType::class, [
-                'label' => 'team.name.label'
+                'label' => 'team.submit.label'
             ])
         ;
     }

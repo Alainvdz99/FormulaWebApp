@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -39,6 +37,18 @@ class Driver
      * @var File
      */
     private $avatarFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $modalAvatar;
+
+    /**
+     * @Vich\UploadableField(mapping="drivers_modal_avatar", fileNameProperty="modalAvatar")
+     * @var File
+     */
+    private $modalAvatarFile;
 
     /**
      * @ORM\Column(type="text")
@@ -91,7 +101,7 @@ class Driver
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\File\File
+     * @return File
      */
     public function getAvatarFile(): ?File
     {
@@ -99,7 +109,7 @@ class Driver
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\File\File $avatar
+     * @param File $avatar
      * @throws \Exception
      */
     public function setAvatarFile(?File $avatar): void
@@ -107,6 +117,43 @@ class Driver
         $this->avatarFile = $avatar;
 
         if($avatar) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getModalAvatar(): ?string
+    {
+        return $this->modalAvatar;
+    }
+
+    /**
+     * @param string $modalAvatar
+     */
+    public function setModalAvatar(?string $modalAvatar): void
+    {
+        $this->modalAvatar = $modalAvatar;
+    }
+
+    /**
+     * @return file
+     */
+    public function getModalAvatarFile(): ?File
+    {
+        return $this->modalAvatarFile;
+    }
+
+    /**
+     * @param File $modalAvatar
+     * @throws \Exception
+     */
+    public function setModalAvatarFile(?File $modalAvatar): void
+    {
+        $this->modalAvatarFile = $modalAvatar;
+
+        if($modalAvatar) {
             $this->updatedAt = new \DateTime('now');
         }
     }

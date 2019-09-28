@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.path.driver.avatar: /uploads/images/drivers
+    app.path.team.race.car: /uploads/images/raceCars
+    app.path.driver.modal: /uploads/images/modal
 
 services:
     # default configuration for services in *this* file

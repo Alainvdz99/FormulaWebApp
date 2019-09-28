@@ -7,6 +7,7 @@ use App\Form\DriverType;
 use App\Interfaces\CrudControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DriverController extends AbstractController implements CrudControllerInterface
@@ -98,6 +99,26 @@ class DriverController extends AbstractController implements CrudControllerInter
 
         return $this->redirect(
             $this->generateUrl('driver')
+        );
+    }
+
+    /**
+     * @Route("driver/{id}", name="driver_modal")
+     * @param int $id
+     * @return Response
+     */
+    public function modal(int $id)
+    {
+        $driver = $this
+            ->getDoctrine()
+            ->getRepository(Driver::class)
+            ->find($id);
+
+        return $this->render(
+            'formula/components/species/driver/modal.html.twig',
+            [
+                'driver' => $driver,
+            ]
         );
     }
 

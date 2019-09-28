@@ -28,6 +28,9 @@ class DriverType extends AbstractType
             ->add('avatarFile', VichFileType::class , [
                 'label' => 'driver.file.label'
             ])
+            ->add('modalAvatarFile', VichFileType::class , [
+                'label' => 'driver.modal.file.label'
+            ])
             ->add('bio', TextareaType::class, [
                 'label' => 'driver.bio.label'
             ])
