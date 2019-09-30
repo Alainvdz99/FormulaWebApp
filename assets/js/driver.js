@@ -1,18 +1,26 @@
 require('../../templates/formula/path/driver/driver.scss');
 
+var driverModal =  $('.driver-modal');
+
 $(".driver")
     .on('click', function (e) {
         e.preventDefault();
         var url = $(this).data('driver-url');
-        var driverModal =  $('.driver-modal');
         $.ajax({
             url: url
         })
             .done(function (html) {
-                driverModal.show();
+                driverModal.addClass('show');
                 driverModal.html(html);
+                close();
             })
             .fail(function (xhr) {
                 xhr.getError()
             });
     });
+
+function close() {
+    $(".close-driver").on('click',function () {
+        driverModal.removeClass('show');
+    });
+}

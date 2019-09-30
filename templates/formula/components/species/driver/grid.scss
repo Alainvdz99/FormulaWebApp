@@ -17,6 +17,7 @@
     }
     &__body {
       tr {
+        cursor: pointer;
         td {
           padding: 1rem;
 
@@ -36,7 +37,7 @@
 }
 
 .driver-modal {
-  display: none; /* Hidden by default */
+  opacity: 0.0; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
@@ -46,6 +47,13 @@
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  transform: translateY(-100%);
+  transition:  0.2s ease-in;
+
+}
+.driver-modal.show {
+  opacity: 1;
+  transform: translateY(0%);
 }
 
 $s : 480px;

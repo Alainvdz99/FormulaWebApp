@@ -8,13 +8,25 @@ use App\Entity\SpecialPredictionInput;
 use App\Entity\SpecialPredictionVote;
 use App\Form\SpecialPredictionInputType;
 use App\Form\SpecialPredictionType;
+use App\Service\ErrorHandling;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Exception\ValidatorException;
 
 class SpecialPredictionController extends AbstractController
 {
+    /**
+     * @var \App\Service\ErrorHandling
+     */
+    private $errorHandling;
+
+    public function __construct(ErrorHandling $errorHandling)
+    {
+        $this->errorHandling = $errorHandling;
+    }
+
     /**
      * @Route("/special-prediction", name="special_prediction")
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -34,6 +46,7 @@ class SpecialPredictionController extends AbstractController
                 'user' => $this->getUser(),
                 'race' => $this->getAvailableRace()
             ]) ?? null;
+
         $specialPredictionInput = new SpecialPredictionInput();
 
         if (!$specialPredictionVotes) {
@@ -60,7 +73,6 @@ class SpecialPredictionController extends AbstractController
                 $specialPredictionInput);
 
         $specialPredictionInputForm->handleRequest($request);
-
 
         if ($specialPredictionInputForm->isSubmitted() && $specialPredictionInputForm->isValid())
         {
@@ -89,7 +101,8 @@ class SpecialPredictionController extends AbstractController
 
         }
 
-        return $this->render('formula/path/specialPrediction/index.html.twig', [
+
+            return $this->render('formula/path/specialPrediction/index.html.twig', [
             'specialPredictions' => $specialPredictions,
             'form' => $specialPredictionInputForm->createView(),
         ]);
@@ -112,7 +125,7 @@ class SpecialPredictionController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
 
             $specialPrediction->setRace($this->getAvailableRace());
-                $specialPrediction->setCreatedBy($this->getUser());
+            $specialPrediction->setCreatedBy($this->getUser());
 
             $manager->persist($specialPrediction);
 
@@ -131,6 +144,12 @@ class SpecialPredictionController extends AbstractController
                     )
                 );
             }
+        }
+
+
+        if ($form->isSubmitted() && !$form->isValid())
+        {
+            $this->errorHandling->handleFormErrors($form);
         }
 
         return $this->render(

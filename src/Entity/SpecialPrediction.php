@@ -6,6 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SpecialPredictionRepository")
+ * @ORM\Table(name="special_prediction",
+ *     uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="unique_prediction", columns={"race", "createdBy"})
+ *     })
  */
 class SpecialPrediction
 {

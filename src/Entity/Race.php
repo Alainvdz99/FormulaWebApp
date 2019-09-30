@@ -184,9 +184,9 @@ class Race
         $endDate =  new \DateTime($this->getRaceDateEnd());
         $currentDate = new \DateTime('now');
 
-        $startDate =  $startDate->format("d-m-Y");
-        $endDate =  $endDate->format("d-m-Y");
-        $currentDate = $currentDate->format("d-m-Y");
+//        $startDate =  $startDate->format("d-m-Y");
+//        $endDate =  $endDate->format("d-m-Y");
+//        $currentDate = $currentDate->format("d-m-Y");
 
         if ($startDate <= $currentDate && $endDate >= $currentDate)
         {

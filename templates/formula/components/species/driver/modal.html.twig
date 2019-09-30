@@ -1,4 +1,16 @@
-<div class="modal-content">
-    <span class="close">&times;</span>
-    <p>{{ driver.name }}</p>
+<div class="s-modalContent" style="background-image: url({{ asset('build/images/carbon-black.jpg') }})">
+
+    <div class="s-modalContent__header" style="background: {{ driver.team.color }};">
+        <img src="{{ vich_uploader_asset(driver, 'modalAvatarFile') }}" alt="">
+    </div>
+
+    <div class="s-modalContent__body">
+        <span class="s-modalContent__body__name">{{ driver.name }}</span>
+        <p>{{ driver.bio }}</p>
+        <img src="{{ vich_uploader_asset(driver.team, 'raceCarFile') }}" alt="">
+    </div>
+
+    <span class="close-driver">&times;</span>
+
+
 </div>
