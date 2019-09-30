@@ -1,5 +1,9 @@
 <div class="s-specialPrediction">
     <h1>Voorspelling</h1>
+    <div class="s-specialPrediction__race">
+        <img src="{{ asset('build/images/' ~ race.location|lower ~ '.svg')}}" alt="">
+        <h2>{{ race.name }}</h2>
+    </div>
     {{ form_start(form) }}
 
         <table class="s-specialPrediction__table">

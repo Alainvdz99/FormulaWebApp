@@ -47,6 +47,7 @@ class SpecialPredictionController extends AbstractController
                 'race' => $this->getAvailableRace()
             ]) ?? null;
 
+        $race = $this->getAvailableRace();
         $specialPredictionInput = new SpecialPredictionInput();
 
         if (!$specialPredictionVotes) {
@@ -56,7 +57,7 @@ class SpecialPredictionController extends AbstractController
 
                 $specialPredictionVote->setSpecialPrediction($specialPrediction);
                 $specialPredictionVote->setUser($this->getUser());
-                $specialPredictionVote->setRace($this->getAvailableRace());
+                $specialPredictionVote->setRace($race);
 
                 $specialPredictionInput->addSpecialPredictionVote($specialPredictionVote);
 
@@ -104,6 +105,7 @@ class SpecialPredictionController extends AbstractController
 
             return $this->render('formula/path/specialPrediction/index.html.twig', [
             'specialPredictions' => $specialPredictions,
+            'race' => $race,
             'form' => $specialPredictionInputForm->createView(),
         ]);
     }

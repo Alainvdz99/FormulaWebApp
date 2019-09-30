@@ -1,5 +1,16 @@
 .s-specialPrediction {
   padding: 2rem 1rem;
+  &__race {
+    display: flex;
+    vertical-align: center;
+    > img {
+      max-width: 3rem;
+      padding-right: 1rem;
+    }
+    > h2 {
+      font-size: 3rem;
+    }
+  }
   &__table {
     width: 100%;
     border-top: 8px solid #e10600;
