@@ -9,9 +9,13 @@ class SpecialPredictionInput
     /** @var ArrayCollection */
     private $specialPredictionVotes;
 
+    /** @var ArrayCollection */
+    private $specialPredictionResults;
+
     public function __construct()
     {
         $this->specialPredictionVotes = new ArrayCollection();
+        $this->specialPredictionResults = new ArrayCollection();
     }
 
 
@@ -33,6 +37,30 @@ class SpecialPredictionInput
     {
         if ($this->specialPredictionVotes->contains($specialPredictionVotes)) {
             $this->specialPredictionVotes->removeElement($specialPredictionVotes);
+
+        }
+
+        return $this;
+    }
+
+    public function getSpecialPredictionResults()
+    {
+        return $this->specialPredictionResults;
+    }
+
+    public function addSpecialPredictionResult($specialPredictionResult): self
+    {
+        if (!$this->specialPredictionResults->contains($specialPredictionResult)) {
+            $this->specialPredictionResults[] = $specialPredictionResult;
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialPredictionResult($specialPredictionResult): self
+    {
+        if ($this->specialPredictionResults->contains($specialPredictionResult)) {
+            $this->specialPredictionResults->removeElement($specialPredictionResult);
 
         }
 
