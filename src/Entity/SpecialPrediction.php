@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\SpecialPredictionRepository")
  * @ORM\Table(name="special_prediction",
  *     uniqueConstraints={
- *      @ORM\UniqueConstraint(name="unique_prediction", columns={"race", "createdBy"})
+ *      @ORM\UniqueConstraint(name="unique_prediction", columns={"race_id", "created_by_id"})
  *     })
  */
 class SpecialPrediction
@@ -36,11 +36,6 @@ class SpecialPrediction
      * @ORM\ManyToOne(targetEntity="App\Entity\Race")
      */
     private $race;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $isHappened;
 
     public function getId(): ?int
     {
@@ -83,15 +78,5 @@ class SpecialPrediction
         return $this;
     }
 
-    public function getIsHappened(): ?bool
-    {
-        return $this->isHappened;
-    }
 
-    public function setIsHappened(bool $isHappened): self
-    {
-        $this->isHappened = $isHappened;
-
-        return $this;
-    }
 }

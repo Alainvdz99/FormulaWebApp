@@ -5,10 +5,13 @@ namespace App\Controller;
 use App\Entity\Race;
 use App\Entity\SpecialPrediction;
 use App\Entity\SpecialPredictionInput;
+use App\Entity\SpecialPredictionResult;
 use App\Entity\SpecialPredictionVote;
+use App\Form\SpecialPredictionInputResultType;
 use App\Form\SpecialPredictionInputType;
 use App\Form\SpecialPredictionType;
 use App\Service\ErrorHandling;
+use App\Service\RacePoints;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -45,7 +48,7 @@ class SpecialPredictionController extends AbstractController
             ->findBy([
                 'user' => $this->getUser(),
                 'race' => $this->getAvailableRace()
-            ]) ?? null;
+            ]);
 
         $race = $this->getAvailableRace();
         $specialPredictionInput = new SpecialPredictionInput();
@@ -104,7 +107,6 @@ class SpecialPredictionController extends AbstractController
 
 
             return $this->render('formula/path/specialPrediction/index.html.twig', [
-            'specialPredictions' => $specialPredictions,
             'race' => $race,
             'form' => $specialPredictionInputForm->createView(),
         ]);
@@ -165,6 +167,126 @@ class SpecialPredictionController extends AbstractController
     public function delete(int $id)
     {
         // TODO: Implement delete() method.
+    }
+
+    /**
+     * @Route("/special-prediction-admin", name="special_prediction_admin")
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function adminIndex(Request $request)
+    {
+        $specialPredictions = $this
+            ->getDoctrine()
+            ->getRepository(SpecialPrediction::class)
+            ->findSpecialPredictionsByAvailableRace();
+
+        $race = $this->getAvailableRace();
+
+        $form = $this->handleResultForm($specialPredictions, $request);
+
+        return $this->render(
+            'formula/path/specialPrediction/adminIndex.html.twig',
+            [
+                'form' => $form->createView(),
+                'race' => $race
+
+            ]
+        );
+    }
+
+    /**
+     * @param array                                     $specialPredictions
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    private function handleResultForm(array $specialPredictions, Request $request)
+    {
+        $race = $this->getAvailableRace();
+
+        $specialPredictionResults = $this
+            ->getDoctrine()
+            ->getRepository(SpecialPredictionResult::class)
+            ->findByAvailableRace($race);
+
+        $racePointsService = new RacePoints();
+
+        $specialPredictionInputResult = new SpecialPredictionInput();
+
+        if(!$specialPredictionResults)
+        {
+            foreach ($specialPredictions as $specialPrediction)
+            {
+                $specialPredictionResult = new SpecialPredictionResult();
+
+                $specialPredictionResult->setSpecialPrediction($specialPrediction);
+                $specialPredictionInputResult->addSpecialPredictionResult($specialPredictionResult);
+            }
+        } else
+        {
+            foreach ($specialPredictionResults as $specialPredictionResult)
+            {
+                $specialPredictionInputResult->addSpecialPredictionResult($specialPredictionResult);
+
+            }
+        }
+
+        $form = $this
+            ->createForm(
+                SpecialPredictionInputResultType::class,
+                $specialPredictionInputResult);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $manager = $this->getDoctrine()->getManager();
+
+            foreach ($specialPredictionInputResult->getSpecialPredictionResults() as $predictionResult)
+            {
+                $manager->persist($predictionResult);
+
+                $specialPredictionVotes = $this
+                    ->getDoctrine()
+                    ->getRepository(SpecialPredictionVote::class)
+                    ->findBy([
+                        'specialPrediction' => $predictionResult->getSpecialPrediction()
+                    ]);
+
+                foreach ($specialPredictionVotes as $specialPredictionVote)
+                {
+                    $user =  $specialPredictionVote->getUser();
+                    $totalPoints = $user->getTotalPoints();
+
+                    $specialPredictionPoint = $racePointsService->checkSpecialPredictionResults(
+                        $specialPredictionVote,
+                        $predictionResult
+                    );
+
+                    $user->setTotalPoints($totalPoints + $specialPredictionPoint);
+
+                    $manager->persist($user);
+                }
+
+            }
+
+
+            try {
+                $manager->flush();
+                return $form;
+
+            } catch (BadRequestHttpException $e) {
+                $this->addFlash(
+                    'error',
+                    sprintf(
+                        'Unable to save: (Error: %s)',
+                        $e->getMessage()
+                    )
+                );
+            }
+        }
+
+        return $form;
+
     }
 
     protected function getAvailableRace()

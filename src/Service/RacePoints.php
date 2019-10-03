@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Entity\RacePrediction;
 use App\Entity\RaceResult;
+use App\Entity\SpecialPredictionResult;
+use App\Entity\SpecialPredictionVote;
 
 class RacePoints
 {
@@ -79,6 +81,30 @@ class RacePoints
         if ($raceResult->getTierMax() === $racePrediction->getTierMax())
         {
             $totalPoints = $totalPoints + 1;
+        }
+
+        return $totalPoints;
+
+    }
+
+    /**
+     * @param \App\Entity\SpecialPredictionVote   $specialPredictionVote
+     * @param \App\Entity\SpecialPredictionResult $specialPredictionResult
+     * @return int
+     */
+    public function checkSpecialPredictionResults(SpecialPredictionVote $specialPredictionVote, SpecialPredictionResult $specialPredictionResult)
+    {
+        $totalPoints = 0;
+
+        if ($specialPredictionVote->getIsHappening() === null || $specialPredictionResult->isHappened() === null){
+            return $totalPoints;
+        }
+        elseif ($specialPredictionVote->getIsHappening() === $specialPredictionResult->isHappened())
+        {
+            $totalPoints += 1;
+        } else
+        {
+            $totalPoints -= 1;
         }
 
         return $totalPoints;

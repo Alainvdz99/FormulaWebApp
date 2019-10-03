@@ -1,0 +1,59 @@
+.s-specialPrediction {
+  padding: 2rem 1rem;
+  &__race {
+    display: flex;
+    vertical-align: center;
+    > img {
+      max-width: 3rem;
+      padding-right: 1rem;
+    }
+    > h2 {
+      font-size: 3rem;
+    }
+  }
+  &__table {
+    width: 100%;
+    border-top: 8px solid #e10600;
+    border-left: 8px solid #e10600;
+    border-radius: 0.25rem;
+    &__head {
+      tr {
+        td {
+          padding: 1rem;
+          font-weight: 700;
+        }
+
+      }
+
+    }
+    &__body {
+      tr {
+        td {
+          padding: 1rem;
+
+        }
+      }
+      tr:nth-child(odd) {
+        background: #f4f4f4;
+      }
+    }
+  }
+  &__actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+
+  }
+}
+
+$s : 480px;
+$m : 768px;
+$l : 1024px;
+$xl : 1250px;
+
+@media only screen and (min-width: $m) {
+  .s-specialPrediction {
+    padding: 4rem 2rem;
+
+  }
+}

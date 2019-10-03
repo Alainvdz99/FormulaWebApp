@@ -15,7 +15,7 @@
             </tr>
             </thead>
             <tbody class="s-specialPrediction__table__body">
-            {% for score in form.specialPredictionVotes %}
+            {% for score in form.specialPredictionResults %}
                     <tr>
                         <td>{{ score.vars.value.specialPrediction.createdBy.fullname|upper|slice(0, 3) }}</td>
                         <td>{{ score.vars.value.specialPrediction.prediction }}</td>
@@ -27,7 +27,6 @@
             </tbody>
         </table>
         <div class="s-specialPrediction__actions">
-            <a class="btn-red" href="{{ path('special_prediction_create') }}">+ Add prediction</a>
             {{ form_widget(form.save) }}
         </div>
 
