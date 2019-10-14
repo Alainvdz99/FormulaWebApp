@@ -1,1 +1,11 @@
-{{ form(form) }}
+<div id="messageForm"></div>
+
+{{ form_start(form,
+    { 'attr' :
+        { 'class' : 'special_prediction_form' },
+        'action' : path('special_prediction_create'),
+    }) }}
+
+{{ form_widget(form.prediction) }}
+
+{{ form_end(form) }}

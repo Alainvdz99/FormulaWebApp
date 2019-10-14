@@ -9,7 +9,9 @@
             <td>Start race week</td>
             <td>Einde race week</td>
             <td>Race voorspelling</td>
+            {% if is_granted('ROLE_ADMIN') %}
             <td>Race uitslag</td>
+            {% endif %}
         </tr>
         </thead>
         <tbody class="s-raceGrid__table__body">
@@ -24,11 +26,13 @@
                         raceId : race.id
                     }) }}">Invullen!</a>
                 </td>
+                {% if is_granted('ROLE_ADMIN') %}
                 <td>
                     <a href="{{ path('race_result_create', {
                         raceId : race.id
                     }) }}">Invullen!</a>
                 </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

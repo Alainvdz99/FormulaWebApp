@@ -44,6 +44,12 @@ class User implements UserInterface
     private $totalPoints = 0;
 
     /**
+     * @var array
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $roles = array();
+
+    /**
      * @var \App\Entity\RacePrediction
      * @ORM\OneToMany(targetEntity="App\Entity\RacePrediction", mappedBy="user")
      */
@@ -93,11 +99,22 @@ class User implements UserInterface
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return (Role|string)[] The user roles
+     * @return array (Role|ar)[] The user roles
      */
-    public function getRoles()
+    public function getRoles(): array
     {
-        return array('ROLE_USER');
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+
+//         allows for chaining
+        return $this;
     }
 
     /**

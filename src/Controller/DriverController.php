@@ -27,7 +27,7 @@ class DriverController extends AbstractController implements CrudControllerInter
     }
 
     /**
-     * @Route("/driver/create", name="create_driver")
+     * @Route("/admin/driver/create", name="create_driver")
      */
     public function create(Request $request)
     {

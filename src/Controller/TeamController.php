@@ -26,7 +26,7 @@ class TeamController extends AbstractController implements CrudControllerInterfa
     }
 
     /**
-     * @Route("/team/create", name="create_team")
+     * @Route("/admin/team/create", name="create_team")
      */
     public function create(Request $request)
     {

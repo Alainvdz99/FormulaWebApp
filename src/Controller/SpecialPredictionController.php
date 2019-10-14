@@ -12,8 +12,11 @@ use App\Form\SpecialPredictionInputType;
 use App\Form\SpecialPredictionType;
 use App\Service\ErrorHandling;
 use App\Service\RacePoints;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Exception\ValidatorException;
@@ -105,7 +108,6 @@ class SpecialPredictionController extends AbstractController
 
         }
 
-
             return $this->render('formula/path/specialPrediction/index.html.twig', [
             'race' => $race,
             'form' => $specialPredictionInputForm->createView(),
@@ -119,49 +121,71 @@ class SpecialPredictionController extends AbstractController
      */
     public function create(Request $request)
     {
-        $specialPrediction = new SpecialPrediction();
+        try {
+            $specialPrediction = new SpecialPrediction();
 
-        $form = $this->createForm(SpecialPredictionType::class, $specialPrediction);
-        $form->handleRequest($request);
+            $form = $this->createForm(SpecialPredictionType::class, $specialPrediction);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $manager = $this->getDoctrine()->getManager();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $manager = $this->getDoctrine()->getManager();
 
-            $specialPrediction->setRace($this->getAvailableRace());
-            $specialPrediction->setCreatedBy($this->getUser());
+                $specialPrediction->setRace($this->getAvailableRace());
+                $specialPrediction->setCreatedBy($this->getUser());
 
-            $manager->persist($specialPrediction);
+                $manager->persist($specialPrediction);
 
-            try {
-                $manager->flush();
-                return $this->redirect(
-                    $this->generateUrl('special_prediction')
-                );
+                try {
+                    $manager->flush();
 
-            } catch (BadRequestHttpException $e) {
-                $this->addFlash(
-                    'error',
-                    sprintf(
-                        'Unable to create race result (Error: %s)',
-                        $e->getMessage()
-                    )
-                );
+                    return $this->redirect(
+                        $this->generateUrl('special_prediction')
+                    );
+
+                } catch (BadRequestHttpException $e) {
+                    $this->addFlash(
+                        'error',
+                        sprintf(
+                            'Unable to create race result (Error: %s)',
+                            $e->getMessage()
+                        )
+                    );
+                }
             }
+
+            if ($form->isSubmitted() && !$form->isValid()) {
+                $this->errorHandling->handleFormErrors($form);
+            }
+
+            return $this->render(
+                'formula/path/specialPrediction/create.html.twig',
+                [
+                    'form'              => $form->createView(),
+                    'SpecialPrediction' => $specialPrediction,
+                ]
+            );
+        } catch (UniqueConstraintViolationException $exception) {
+            return new JsonResponse(
+                [
+                    'status' => Response::HTTP_BAD_REQUEST,
+                    'code' => $exception->getCode(),
+                    'message' => $exception->getMessage(),
+                    'userMessage' => "Er bestaal al een voorspelling met dit account"
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+
         }
-
-
-        if ($form->isSubmitted() && !$form->isValid())
-        {
-            $this->errorHandling->handleFormErrors($form);
+        catch (\Throwable $exception) {
+            return new JsonResponse(
+                [
+                    'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'code'    => $exception->getCode(),
+                    'message' => $exception->getMessage(),
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
-
-        return $this->render(
-            'formula/path/specialPrediction/create.html.twig', [
-                'form' => $form->createView(),
-                'SpecialPrediction' => $specialPrediction,
-            ]
-        );
     }
 
     public function delete(int $id)
@@ -170,7 +194,7 @@ class SpecialPredictionController extends AbstractController
     }
 
     /**
-     * @Route("/special-prediction-admin", name="special_prediction_admin")
+     * @Route("/admin/special-prediction", name="special_prediction_admin")
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

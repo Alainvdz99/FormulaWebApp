@@ -54,4 +54,9 @@ class SpecialPredictionResult
 
         return $this;
     }
+
+    public function getHappened(): ?bool
+    {
+        return $this->happened;
+    }
 }

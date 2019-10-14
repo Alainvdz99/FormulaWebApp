@@ -7,9 +7,15 @@
             <a class="s-sideNav__links__link" href="{{ path('race') }}">
                 <span>Races</span>
             </a>
-            <a class="s-sideNav__links__link" href="{{ path('special_prediction_admin') }}">
-                <span>Voorspelling</span>
-            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="s-sideNav__links__link" href="{{ path('special_prediction_admin') }}">
+                    <span>Voorspelling</span>
+                </a>
+            {% elseif is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+                <a class="s-sideNav__links__link" href="{{ path('special_prediction') }}">
+                    <span>Voorspelling</span>
+                </a>
+            {% endif %}
             <a class="s-sideNav__links__link" href="{{ path('driver') }}">
                 <span>Drivers</span>
             </a>

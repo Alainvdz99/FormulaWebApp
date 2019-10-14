@@ -15,7 +15,8 @@ class SpecialPredictionInputResultType extends AbstractType
     {
         $builder
             ->add('specialPredictionResults', CollectionType::class, [
-            'entry_type' => SpecialPredictionResultType::class
+                'entry_type' => SpecialPredictionResultType::class,
+                'label' => false
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Submit'

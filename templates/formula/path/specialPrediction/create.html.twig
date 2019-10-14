@@ -1,5 +1,9 @@
 {% extends 'formula/base.html.twig' %}
 
 {% block content %}
-    {% include 'formula/components/species/driver/form.html.twig' %}
+    {% include 'formula/components/species/specialPrediction/form.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/specialPrediction.js') }}"></script>
 {% endblock %}

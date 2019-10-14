@@ -15,7 +15,8 @@ class SpecialPredictionInputType extends AbstractType
     {
         $builder
             ->add('specialPredictionVotes', CollectionType::class, [
-            'entry_type' => SpecialPredictionVoteType::class
+                'entry_type' => SpecialPredictionVoteType::class,
+                'label' => false
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Submit'

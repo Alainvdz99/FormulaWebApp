@@ -7,6 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RacePredictionRepository")
+ *  * @ORM\Table(name="race_prediction",
+ *     uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="unique_race_prediction", columns={"race_id", "user_id"})
+ *     })
  */
 class RacePrediction implements PredictionInterface
 {
@@ -259,6 +263,11 @@ class RacePrediction implements PredictionInterface
     public function setIsEnabled(bool $isEnabled): void
     {
         $this->isEnabled = $isEnabled;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
     }
 
 }

@@ -14,6 +14,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class GoogleController extends AbstractController
 {
     /**
+     * @Route("/logout", name="logout")
+     * @throws \Exception
+     */
+    public function logout()
+    {
+        throw new \Exception('Will be intercepted before getting here');
+    }
+
+    /**
      * @Route("/security/google", name="security_google")
      */
     public function index(): Response

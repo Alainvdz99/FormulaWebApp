@@ -18,10 +18,12 @@
         {% endfor %}
         </tbody>
     </table>
-    <div class="s-driverGrid__actions">
-        <a class="btn-red" href="{{ path('create_driver') }}">+ Add driver</a>
-        <a class="btn-blue" href="{{ path('create_team') }}">+ Add team</a>
-    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="s-driverGrid__actions">
+            <a class="btn-red" href="{{ path('create_driver') }}">+ Add driver</a>
+            <a class="btn-blue" href="{{ path('create_team') }}">+ Add team</a>
+        </div>
+    {% endif %}
 </div>
 
 <div class="driver-modal">
