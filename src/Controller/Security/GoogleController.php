@@ -19,7 +19,7 @@ class GoogleController extends AbstractController
      */
     public function logout()
     {
-        throw new \Exception('Will be intercepted before getting here');
+        return $this->redirect($this->generateUrl('home'));
     }
 
     /**
