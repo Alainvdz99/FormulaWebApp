@@ -3,39 +3,62 @@
 namespace App\Controller;
 
 use App\Entity\Race;
+use App\Entity\RacePrediction;
+use App\Entity\RaceResult;
 use App\Form\RaceType;
 use App\Interfaces\CrudControllerInterface;
+use App\Repository\RacePredictionRepository;
+use App\Repository\RaceRepository;
+use App\Repository\RaceResultRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RaceController extends AbstractController implements CrudControllerInterface
 {
     /**
      * @Route("/race", name="race")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
+     * @throws NonUniqueResultException
      */
     public function index()
     {
-        $races = $this
-            ->getDoctrine()
-            ->getRepository(Race::class)
-            ->findBy([],
+        /** @var RaceRepository $raceRepository */
+        $raceRepository = $this->getDoctrine()->getRepository(Race::class);
+        /** @var RaceResultRepository $raceResultRepository */
+        $raceResultRepository = $this->getDoctrine()->getRepository(RaceResult::class);
+        /** @var RacePredictionRepository $racePredictionRepository */
+        $racePredictionRepository = $this->getDoctrine()->getRepository(RacePrediction::class);
+
+        $races = $raceRepository->findBy([],
                 [
                     'raceDateStart' => 'ASC'
                 ]
-
             );
+
+        $raceResult = null;
+        $racePrediction = null;
+        $availableRace = $raceRepository->findAvailableRace();
+
+        if ($availableRace !== null) {
+            $raceResult = $raceResultRepository->checkIfRaceResultExist($availableRace->getId());
+            $racePrediction = $racePredictionRepository
+                ->checkIfRacePredictionExist($availableRace->getId(), $this->getUser()->getId());
+        }
 
         return $this->render('formula/path/race/index.html.twig', [
             'races' => $races,
+            'raceResult' => $raceResult,
+            'racePrediction' => $racePrediction
         ]);
     }
 
     /**
      * @Route("/race/create", name="create_race")
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @throws \Exception
      */
     public function create(Request $request)

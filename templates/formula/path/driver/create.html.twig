@@ -3,3 +3,8 @@
 {% block content %}
     {% include 'formula/components/species/driver/form.html.twig' %}
 {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('build/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/driver.css') }}">
+{% endblock %}

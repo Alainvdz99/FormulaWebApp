@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User extends BaseUser
 {
     use TimestampableTrait;
 
@@ -19,23 +19,7 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=150)
-     */
-    private $fullname;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $avatar;
-
+    protected $id;
 
     /**
      * @var int
@@ -44,136 +28,21 @@ class User implements UserInterface
     private $totalPoints = 0;
 
     /**
-     * @var array
-     * @ORM\Column(type="array", nullable=true)
+     * @var string
+     * @ORM\Column(type="string", length=3)
      */
-    private $roles = array();
+    private $shortName;
 
     /**
-     * @var \App\Entity\RacePrediction
+     * @var RacePrediction
      * @ORM\OneToMany(targetEntity="App\Entity\RacePrediction", mappedBy="user")
      */
     private $racePredictions;
 
     public function __construct()
     {
+        parent::__construct();
         $this->racePredictions = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getFullname(): ?string
-    {
-        return $this->fullname;
-    }
-
-    public function setFullname(string $fullname): self
-    {
-        $this->fullname = $fullname;
-
-        return $this;
-    }
-
-    /**
-     * Returns the roles granted to the user.
-     *     public function getRoles()
-     *     {
-     *         return ['ROLE_USER'];
-     *     }
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return array (Role|ar)[] The user roles
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles)
-    {
-        $this->roles = $roles;
-
-//         allows for chaining
-        return $this;
-    }
-
-    /**
-     * Returns the password used to authenticate the user.
-     * This should be the encoded password. On authentication, a plain-text
-     * password will be salted, encoded, and then compared to this value.
-     *
-     * @return string|null The encoded password if any
-     */
-    public function getPassword()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the salt that was originally used to encode the password.
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
-     */
-    public function getSalt()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
-     */
-    public function getUsername()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Removes sensitive data from the user.
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
-    public function eraseCredentials()
-    {
-        return null;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
-    }
-
-    /**
-     * @param mixed $avatar
-     */
-    public function setAvatar($avatar): void
-    {
-        $this->avatar = $avatar;
     }
 
     /**
@@ -193,9 +62,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return \App\Entity\RacePrediction
+     * @return RacePrediction
      */
-    public function getRacePredictions(): \App\Entity\RacePrediction
+    public function getRacePredictions(): RacePrediction
     {
         return $this->racePredictions;
     }
@@ -221,6 +90,22 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getShortName(): ?string
+    {
+        return $this->shortName;
+    }
+
+    /**
+     * @param string $shortName
+     */
+    public function setShortName(string $shortName): void
+    {
+        $this->shortName = $shortName;
     }
 
 }

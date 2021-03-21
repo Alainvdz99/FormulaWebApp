@@ -1,0 +1,49 @@
+2020/03/30 22:29:32 [crit] 7#7: *1 open() "/var/tmp/nginx/fastcgi/1/00/0000000001" failed (13: Permission denied) while reading upstream, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /security/google/check?state=dd5732a94a6d2ad12c5885016f8f06d1&code=4/yAG48J3GmQ9MMjZ0AbJWps9gT15OU2EYxKxb73Ken1DzCDyNesAzkyr9CSe91uiBR9yFqY_2w3mruyAcYoncyKI&scope=email+profile+openid+https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/userinfo.email&authuser=0&prompt=none HTTP/1.1", upstream: "fastcgi://10.250.4.2:9001", host: "docker.formula.toppy-dev.nl"
+2020/04/04 22:00:41 [alert] 8#8: *205 sendfile() reported that "/var/www/app/public/build/driver.js" was truncated at 782573 while sending response to client, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /build/driver.js HTTP/1.1", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/driver"
+2020/04/06 21:01:40 [alert] 7#7: *179 sendfile() reported that "/var/www/app/public/build/login.css" was truncated at 302508 while sending response to client, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /build/login.css HTTP/1.1", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/login"
+2020/04/06 21:01:42 [alert] 7#7: *186 sendfile() reported that "/var/www/app/public/build/login.css" was truncated at 302508 while sending response to client, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /build/login.css HTTP/1.1", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/login"
+2020/04/06 21:01:42 [alert] 7#7: *178 sendfile() reported that "/var/www/app/public/build/login.css" was truncated at 302508 while sending response to client, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /build/login.css HTTP/1.1", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/login"
+2020/04/06 21:01:56 [alert] 7#7: *189 sendfile() reported that "/var/www/app/public/build/login.css" was truncated at 302508 while sending response to client, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /build/login.css HTTP/1.1", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/login"
+2020/04/06 21:01:56 [alert] 7#7: *191 sendfile() reported that "/var/www/app/public/build/login.css" was truncated at 302508 while sending response to client, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /build/login.css HTTP/1.1", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/login"
+2020/04/06 21:01:58 [alert] 7#7: *193 sendfile() reported that "/var/www/app/public/build/login.css" was truncated at 302508 while sending response to client, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /build/login.css HTTP/1.1", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/register/"
+2020/04/06 21:01:58 [alert] 7#7: *195 sendfile() reported that "/var/www/app/public/build/login.css" was truncated at 302508 while sending response to client, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /build/login.css HTTP/1.1", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/register/"
+2021/03/12 23:14:48 [error] 7#7: *136 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Symfony\Component\Dotenv\Exception\FormatException: Missing = in the environment variable declaration in "/var/www/app/.env" at line 45.
+...st"\nmailer_transport: smtp\nmailer_host: ...
+                       ^ line 45 offset 2200 in /var/www/app/vendor/symfony/dotenv/Dotenv.php:485
+Stack trace:
+#0 /var/www/app/vendor/symfony/dotenv/Dotenv.php(240): Symfony\Component\Dotenv\Dotenv->createFormatException('Missing = in th...')
+#1 /var/www/app/vendor/symfony/dotenv/Dotenv.php(195): Symfony\Component\Dotenv\Dotenv->lexVarname()
+#2 /var/www/app/vendor/symfony/dotenv/Dotenv.php(495): Symfony\Component\Dotenv\Dotenv->parse('COMPOSER_GITHUB...', '/var/www/app/.e...')
+#3 /var/www/app/vendor/symfony/dotenv/Dotenv.php(65): Symfony\Component\Dotenv\Dotenv->doLoad(false, Array)
+#4 /var/www/app/vendor/symfony/dotenv/Dotenv.php(85): Symfony\Component\Dotenv\Dotenv->load('/var/www/app/.e...')
+#5 /var/www/app/config/bootstrap.php(17): Symfony\Component\Dotenv\Dotenv->loadEnv" while reading response header from upstream, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET /_wdt/909694 HTTP/1.1", upstream: "fastcgi://10.250.4.2:9001", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/resetting/request"
+2021/03/12 23:14:52 [error] 7#7: *136 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Symfony\Component\Dotenv\Exception\FormatException: Missing = in the environment variable declaration in "/var/www/app/.env" at line 45.
+...st"\nmailer_transport: smtp\nmailer_host: ...
+                       ^ line 45 offset 2200 in /var/www/app/vendor/symfony/dotenv/Dotenv.php:485
+Stack trace:
+#0 /var/www/app/vendor/symfony/dotenv/Dotenv.php(240): Symfony\Component\Dotenv\Dotenv->createFormatException('Missing = in th...')
+#1 /var/www/app/vendor/symfony/dotenv/Dotenv.php(195): Symfony\Component\Dotenv\Dotenv->lexVarname()
+#2 /var/www/app/vendor/symfony/dotenv/Dotenv.php(495): Symfony\Component\Dotenv\Dotenv->parse('COMPOSER_GITHUB...', '/var/www/app/.e...')
+#3 /var/www/app/vendor/symfony/dotenv/Dotenv.php(65): Symfony\Component\Dotenv\Dotenv->doLoad(false, Array)
+#4 /var/www/app/vendor/symfony/dotenv/Dotenv.php(85): Symfony\Component\Dotenv\Dotenv->load('/var/www/app/.e...')
+#5 /var/www/app/config/bootstrap.php(17): Symfony\Component\Dotenv\Dotenv->loadEnv" while reading response header from upstream, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "POST /resetting/send-email HTTP/1.1", upstream: "fastcgi://10.250.4.2:9001", host: "docker.formula.toppy-dev.nl", referrer: "http://docker.formula.toppy-dev.nl/resetting/request"
+2021/03/12 23:15:06 [error] 7#7: *136 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Symfony\Component\Dotenv\Exception\FormatException: Missing = in the environment variable declaration in "/var/www/app/.env" at line 45.
+...st"\nmailer_transport: smtp\nmailer_host: ...
+                       ^ line 45 offset 2200 in /var/www/app/vendor/symfony/dotenv/Dotenv.php:485
+Stack trace:
+#0 /var/www/app/vendor/symfony/dotenv/Dotenv.php(240): Symfony\Component\Dotenv\Dotenv->createFormatException('Missing = in th...')
+#1 /var/www/app/vendor/symfony/dotenv/Dotenv.php(195): Symfony\Component\Dotenv\Dotenv->lexVarname()
+#2 /var/www/app/vendor/symfony/dotenv/Dotenv.php(495): Symfony\Component\Dotenv\Dotenv->parse('COMPOSER_GITHUB...', '/var/www/app/.e...')
+#3 /var/www/app/vendor/symfony/dotenv/Dotenv.php(65): Symfony\Component\Dotenv\Dotenv->doLoad(false, Array)
+#4 /var/www/app/vendor/symfony/dotenv/Dotenv.php(85): Symfony\Component\Dotenv\Dotenv->load('/var/www/app/.e...')
+#5 /var/www/app/config/bootstrap.php(17): Symfony\Component\Dotenv\Dotenv->loadEnv" while reading response header from upstream, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET / HTTP/1.1", upstream: "fastcgi://10.250.4.2:9001", host: "docker.formula.toppy-dev.nl"
+2021/03/12 23:15:11 [error] 7#7: *136 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Symfony\Component\Dotenv\Exception\FormatException: Missing = in the environment variable declaration in "/var/www/app/.env" at line 45.
+...st"\nmailer_transport: smtp\nmailer_host: ...
+                       ^ line 45 offset 2200 in /var/www/app/vendor/symfony/dotenv/Dotenv.php:485
+Stack trace:
+#0 /var/www/app/vendor/symfony/dotenv/Dotenv.php(240): Symfony\Component\Dotenv\Dotenv->createFormatException('Missing = in th...')
+#1 /var/www/app/vendor/symfony/dotenv/Dotenv.php(195): Symfony\Component\Dotenv\Dotenv->lexVarname()
+#2 /var/www/app/vendor/symfony/dotenv/Dotenv.php(495): Symfony\Component\Dotenv\Dotenv->parse('COMPOSER_GITHUB...', '/var/www/app/.e...')
+#3 /var/www/app/vendor/symfony/dotenv/Dotenv.php(65): Symfony\Component\Dotenv\Dotenv->doLoad(false, Array)
+#4 /var/www/app/vendor/symfony/dotenv/Dotenv.php(85): Symfony\Component\Dotenv\Dotenv->load('/var/www/app/.e...')
+#5 /var/www/app/config/bootstrap.php(17): Symfony\Component\Dotenv\Dotenv->loadEnv" while reading response header from upstream, client: 10.250.4.1, server: docker.formula.toppy-dev.nl, request: "GET / HTTP/1.1", upstream: "fastcgi://10.250.4.2:9001", host: "docker.formula.toppy-dev.nl"

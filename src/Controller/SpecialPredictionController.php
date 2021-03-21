@@ -40,11 +40,13 @@ class SpecialPredictionController extends AbstractController
      */
     public function index(Request $request)
     {
+        /** @var SpecialPrediction[] $specialPredictions */
         $specialPredictions = $this
             ->getDoctrine()
             ->getRepository(SpecialPrediction::class)
             ->findSpecialPredictionsByAvailableRace();
 
+        /** @var SpecialPredictionVote[] $specialPredictionVotes */
         $specialPredictionVotes =  $this
             ->getDoctrine()
             ->getRepository(SpecialPredictionVote::class)
@@ -56,23 +58,22 @@ class SpecialPredictionController extends AbstractController
         $race = $this->getAvailableRace();
         $specialPredictionInput = new SpecialPredictionInput();
 
-        if (!$specialPredictionVotes) {
-            foreach ($specialPredictions as $specialPrediction)
-            {
-                $specialPredictionVote = new SpecialPredictionVote();
-
-                $specialPredictionVote->setSpecialPrediction($specialPrediction);
-                $specialPredictionVote->setUser($this->getUser());
-                $specialPredictionVote->setRace($race);
-
-                $specialPredictionInput->addSpecialPredictionVote($specialPredictionVote);
-
+        foreach ($specialPredictions as $specialPrediction)
+        {
+            foreach ($specialPredictionVotes as $predictionVote) {
+                if ($specialPrediction->getId() === $predictionVote->getSpecialPrediction()->getId()) {
+                    $specialPredictionInput->addSpecialPredictionVote($predictionVote);
+                    continue 2;
+                }
             }
-        } else {
-            foreach ($specialPredictionVotes as $predictionVote)
-            {
-                $specialPredictionInput->addSpecialPredictionVote($predictionVote);
-            }
+            $specialPredictionVote = new SpecialPredictionVote();
+
+            $specialPredictionVote->setSpecialPrediction($specialPrediction);
+            $specialPredictionVote->setUser($this->getUser());
+            $specialPredictionVote->setRace($race);
+
+            $specialPredictionInput->addSpecialPredictionVote($specialPredictionVote);
+
         }
 
         $specialPredictionInputForm = $this

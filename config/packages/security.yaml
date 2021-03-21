@@ -1,23 +1,32 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
-            entity:
-                class: App\Entity\User
-                property: email
+        fos_userbundle:
+            id: fos_user.user_provider.username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
         main:
-            anonymous: ~
-            logout:
-                path: logout
-            guard:
-                authenticators:
-                    - App\Security\GoogleAuthenticator
+            pattern: ^/
+            user_checker: security.user_checker
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+
+            logout:       true
+            anonymous:    true
+
+#        main:
+#            anonymous: ~
+#            logout:
+#                path: logout
+#            guard:
+#                authenticators:
+#                    - App\Security\GoogleAuthenticator
 
                 # activate different ways to authenticate
 
@@ -30,6 +39,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/login$, roles: [ IS_AUTHENTICATED_ANONYMOUSLY] }
+        - { path: ^/register, roles: [ IS_AUTHENTICATED_ANONYMOUSLY] }
+        - { path: ^/resetting, roles: [ IS_AUTHENTICATED_ANONYMOUSLY] }
         - { path: ^/security/google/connect$, roles: [ IS_AUTHENTICATED_ANONYMOUSLY, ROLE_USER, ROLE_ADMIN ] }
-        - { path: ^/admin/, roles: [ ROLE_ADMIN ] }
+        - { path: ^/admin/, roles: [ ROLE_ADMIN, ROLE_SUPER_ADMIN ] }
         - { path: ^/, roles: [ IS_AUTHENTICATED_FULLY ] }

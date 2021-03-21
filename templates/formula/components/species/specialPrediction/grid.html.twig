@@ -1,36 +1,37 @@
 <div class="s-specialPrediction">
     <h1>Voorspelling</h1>
-    <div class="s-specialPrediction__race">
-        <img src="{{ asset('build/images/' ~ race.location|lower ~ '.svg')}}" alt="">
-        <h2>{{ race.name }}</h2>
-    </div>
-    {{ form_start(form) }}
-
-        <table class="s-specialPrediction__table">
-            <thead class="s-specialPrediction__table__head">
-            <tr>
-                <td>Naam</td>
-                <td>Voorspelling</td>
-                <td>Ja / Nee?</td>
-            </tr>
-            </thead>
-            <tbody class="s-specialPrediction__table__body">
-            {% for score in form.specialPredictionVotes %}
-                    <tr>
-                        <td>{{ score.vars.value.specialPrediction.createdBy.fullname|upper|slice(0, 3) }}</td>
-                        <td>{{ score.vars.value.specialPrediction.prediction }}</td>
-                        <td>
-                            {{ form_widget(score) }}
-                        </td>
-                    </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <div class="s-specialPrediction__actions">
-            <a class="btn-red" href="{{ path('special_prediction_create') }}">+ Add prediction</a>
-            {{ form_widget(form.save) }}
+    {% if race != null %}
+        <div class="s-specialPrediction__race">
+            <h2>{{ race.name }}</h2>
         </div>
+        {{ form_start(form) }}
 
-    {{ form_end(form) }}
+            <table class="s-specialPrediction__table">
+                <thead class="s-specialPrediction__table__head">
+                <tr>
+                    <td>Naam</td>
+                    <td>Voorspelling</td>
+                    <td>Ja / Nee?</td>
+                </tr>
+                </thead>
+                <tbody class="s-specialPrediction__table__body">
+                {% for score in form.specialPredictionVotes %}
+                        <tr>
+                            <td>{{ score.vars.value.specialPrediction.createdBy.username|upper|slice(0, 3) }}</td>
+                            <td>{{ score.vars.value.specialPrediction.prediction }}</td>
+                            <td>
+                                {{ form_widget(score) }}
+                            </td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="s-specialPrediction__actions">
+                <a class="btn-red" href="{{ path('special_prediction_create') }}">+ Add prediction</a>
+                {{ form_widget(form.save, {'attr': {'class': 'btn-blue'}}) }}
+            </div>
+
+        {{ form_end(form) }}
+    {% endif %}
 
 </div>

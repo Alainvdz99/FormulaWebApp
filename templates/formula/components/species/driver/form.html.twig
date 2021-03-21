@@ -1,1 +1,55 @@
-{{ form(form) }}
+<div class="form">
+    <h1>Coureur aanmaken</h1>
+    <div class="form__container">
+        {{ form_start(form) }}
+
+        {{ form_errors(form) }}
+
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.name, {
+                'attr' : {
+                    'class' : 'input100',
+                    'placeholder' : 'Max Verstappen'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.team, {
+                'attr' : {
+                    'class' : 'input100',
+                    'placeholder' : 'Red Bull'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.avatarFile, {
+                'attr' : {
+                    'class' : 'input100'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.modalAvatarFile, {
+                'attr' : {
+                    'class' : 'input100'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.bio, {
+                'attr' : {
+                    'class' : 'input100'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+        <div class="form__action">
+            {{ form_row(form.save, {
+                'attr' : {
+                    'class' : 'btn-blue'
+                }}) }}
+        </div>
+        {{ form_row(form.save) }}
+        {{ form_end(form) }}
+    </div>
+</div>

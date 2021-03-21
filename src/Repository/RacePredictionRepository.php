@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\RacePrediction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method RacePrediction|null find($id, $lockMode = null, $lockVersion = null)
@@ -33,16 +34,23 @@ class RacePredictionRepository extends ServiceEntityRepository
         ;
     }
 
-
-    /*
-    public function findOneBySomeField($value): ?RacePrediction
+    /**
+     * @param int $raceId
+     * @param int $userId
+     * @return RacePrediction|null
+     * @throws NonUniqueResultException
+     */
+    public function checkIfRacePredictionExist(int $raceId, int $userId): ?RacePrediction
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('r.user = :userId')
+            ->andWhere('r.race = :raceId')
+            ->setParameters([
+                'raceId' => $raceId,
+                'userId' => $userId
+            ])
             ->getQuery()
             ->getOneOrNullResult()
-        ;
+            ;
     }
-    */
 }

@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Race;
 use App\Entity\RaceResult;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method RaceResult|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +49,19 @@ class RaceResultRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @param int $raceId
+     * @return RaceResult|null
+     * @throws NonUniqueResultException
+     */
+    public function checkIfRaceResultExist(int $raceId): ?RaceResult
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.race = :raceId')
+            ->setParameter('raceId', $raceId)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

@@ -1,5 +1,4 @@
 <div class="s-raceGrid">
-
     <h1>Races</h1>
     <table class="s-raceGrid__table">
         <thead class="s-raceGrid__table__head">
@@ -9,8 +8,8 @@
             <td>Start race week</td>
             <td>Einde race week</td>
             <td>Race voorspelling</td>
-            {% if is_granted('ROLE_ADMIN') %}
-            <td>Race uitslag</td>
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                <td>Race uitslag</td>
             {% endif %}
         </tr>
         </thead>
@@ -21,12 +20,14 @@
                 <td>{{ race.location }}</td>
                 <td>{{ race.raceDateStart }}</td>
                 <td>{{ race.raceDateEnd }}</td>
-                <td>
-                    <a href="{{ path('race_prediction_create', {
+                <td class="s-raceGrid__table__body__action">
+                    {% if race.isActive and not racePrediction %}
+                    <a class="btn-blue" href="{{ path('race_prediction_create', {
                         raceId : race.id
-                    }) }}">Invullen!</a>
+                    }) }}"><i class="fa fa-edit"></i></a>
+                    {% endif %}
                 </td>
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') and race.isActive and not raceResult %}
                 <td>
                     <a href="{{ path('race_result_create', {
                         raceId : race.id
@@ -37,8 +38,10 @@
         {% endfor %}
         </tbody>
     </table>
-    <div class="s-raceGrid__actions">
-        <a class="btn-red" href="{{ path('create_race') }}">+ Add race</a>
-    </div>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+        <div class="s-raceGrid__actions">
+            <a class="btn-red" href="{{ path('create_race') }}">+ Voeg race toe</a>
+        </div>
+    {% endif %}
 
 </div>

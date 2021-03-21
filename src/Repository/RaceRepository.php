@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Race;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Race|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,7 +35,11 @@ class RaceRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function findAvailableRace()
+    /**
+     * @return Race|null
+     * @throws NonUniqueResultException
+     */
+    public function findAvailableRace(): ?Race
     {
         return $this->createQueryBuilder('r')
             ->where('r.isActive = :isActive')

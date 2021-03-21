@@ -16,16 +16,16 @@ class TeamType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'team.name.label'
+                'label' => 'Naam'
             ])
             ->add('raceCarFile', VichFileType::class , [
-                'label' => 'team.raceCar.label'
+                'label' => 'Auto afbeelding'
             ])
             ->add('color', TextType::class, [
-                'label' => 'team.color.label'
+                'label' => 'Team kleur code'
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'team.submit.label'
+                'label' => 'Opslaan'
             ])
         ;
     }

@@ -13,7 +13,8 @@ class RacePredictionController extends AbstractController
 {
     /**
      * @Route("/race/{raceId}/raceprediction/create", name="race_prediction_create")
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
+     * @param int $raceId
      * @return mixed
      * @throws \Exception
      */
@@ -61,7 +62,7 @@ class RacePredictionController extends AbstractController
         }
 
         return $this->render(
-            'formula/path/driver/create.html.twig', [
+            'formula/path/race/racePrediction/create.html.twig', [
                 'form' => $form->createView(),
                 'racePrediction' => $racePrediction,
                 'raceId' => $race

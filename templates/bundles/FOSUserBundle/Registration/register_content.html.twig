@@ -1,0 +1,68 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, {'method': 'post', 'action': path('register_controller', {'token': app.request.request.get('token')}), 'attr': {'class': 'fos_user_registration_register'}}) }}
+
+    <span class="login100-form-title">
+        Nieuw Account
+    </span>
+
+    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+        {{ form_widget(form.username, {
+            'attr' : {
+                'class' : 'input100',
+                'placeholder' : "username"
+            }}) }}
+        <span class="focus-input100"></span>
+        <span class="symbol-input100">
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </span>
+    </div>
+    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+        {{ form_widget(form.shortName, {
+            'attr' : {
+                'class' : 'input100',
+                'placeholder' : "race name (3 letters)"
+            }}) }}
+        <span class="focus-input100"></span>
+        <span class="symbol-input100">
+                <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+            </span>
+    </div>
+    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+        {{ form_widget(form.plainPassword.first, {
+            'attr' : {
+                'class' : 'input100',
+                'placeholder' : "Wachtwoord"
+            }}) }}
+        <span class="focus-input100"></span>
+        <span class="symbol-input100">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+        </span>
+    </div>
+    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+        {{ form_widget(form.plainPassword.second, {
+            'attr' : {
+                'class' : 'input100',
+                'placeholder' : "Herhaal wachtwoord"
+            }}) }}
+        <span class="focus-input100"></span>
+        <span class="symbol-input100">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+        </span>
+    </div>
+    {{ form_widget(form.email, {
+        'attr' : {
+            'value' : app.request.request.get('email')
+        }
+    }) }}
+
+    <div class="container-login100-form-btn">
+        <button class="login100-form-btn" type="submit" id="_submit" name="_submit">
+            {{ 'registration.submit'|trans }}
+        </button>
+    </div>
+{{ form_end(form) }}
+
+
+
+

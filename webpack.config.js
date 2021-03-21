@@ -27,9 +27,11 @@ Encore
     .addEntry('home', './assets/js/home.js')
     .addEntry('driver', './assets/js/driver.js')
     .addEntry('race', './assets/js/race.js')
+    .addEntry('team', './assets/js/team.js')
     .addEntry('specialPrediction', './assets/js/specialPrediction.js')
     .addEntry('user', './assets/js/user.js')
     .addEntry('standard', './assets/js/standard.js')
+    .addEntry('login', './assets/js/login.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

@@ -3,11 +3,15 @@
 namespace App\Service;
 
 use App\Entity\Race;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UpdateRaceService extends AbstractController
 {
-    public function updateRaces()
+    /**
+     * @throws Exception
+     */
+    public function updateRaces(): void
     {
         $races = $this
             ->getDoctrine()
@@ -16,6 +20,7 @@ class UpdateRaceService extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
 
+        /** @var Race $race */
         foreach ($races as $race)
         {
             $race->setIsActive($race->isAvailable());

@@ -1,74 +1,62 @@
-version: "3"
+version: '3.7'
 services:
-  nginx_formula:
-    image: registry.gitlab.com/toppy-webshop/docker-images/nginx1.15-alpine-base:latest
-    depends_on:
-      - fpm
-    ports:
-      - 80:80
-    volumes:
-      - ./public:/app/public
-      - ./development/docker/nginx/symfony.conf:/etc/nginx/sites-enabled/symfony.conf
-    networks:
-      - webnet
-      - default
-    environment:
-      - APPLICATION_POOL_FCGI_SERVER=fpm:9000
-      - APPLICATION_FASTCGI_READ_TIMEOUT=600
-      - APPLICATION_FASTCGI_CONNECT_TIMEOUT=30
-
-  fpm:
-    image: registry.gitlab.com/toppy-webshop/docker-images/php7.2-fpm-alpine-dev:latest
-    ports:
-      - 9000
-      - 587
-    depends_on:
-      - db
-    networks:
-      - webnet
-      - dbnet
-    env_file:
-      - .env
-    volumes:
-      - ./:/app
-      - ./development/docker/fpm/30-postfix.sh:/opt/docker/init.d/30-postfix.sh
-
-  cli:
-    image: registry.gitlab.com/toppy-webshop/docker-images/php7.2-cli-alpine-dev
-    ports:
-      - 9000
-      - 587
-    depends_on:
-      - db
-    env_file:
-      - .env
-    volumes:
-      - ~/.composer/cache:/home/app/.composer/cache
-      - ./:/app
-      - ./development/docker/fpm/30-postfix.sh:/opt/docker/init.d/30-postfix.sh
-    networks:
-      - webnet
-      - dbnet
-
   db:
+    container_name: db
     image: mysql:5.7
+    command: ["--default-authentication-plugin=mysql_native_password"]
     ports:
-      - "3308:3306"
-    volumes:
-      - dbdata:/var/lib/mysql
-    command:
-      - --max_allowed_packet=65011712
-      - --innodb_buffer_pool_size=2G
-    networks:
-      - dbnet
+      - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=formula
-      - MYSQL_DATABASE=formula
-      - MYSQL_USER=formula
-      - MYSQL_PASSWORD=formula
+      MYSQL_ROOT_PASSWORD: formula
+      MYSQL_DATABASE: formula
+      MYSQL_USER: formula
+      MYSQL_PASSWORD: formula
+    networks:
+      - db
 
-volumes:
-  dbdata:
+  php:
+    container_name: php-fpm
+    build: ./dev/php-fpm
+    ports:
+      - "9000:9001"
+    volumes:
+      - ./:/var/www/app:cached
+      - ./logs/symfony:/var/www/symfony/var/log:cached
+    depends_on:
+      - db
+    networks:
+      - db
+      - php
+
+  nginx:
+    container_name: nginx
+    build: ./dev/nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+    networks:
+      - php
+    volumes:
+      - ./logs/nginx:/var/log/nginx:cached
+      - ./:/var/www/app:cached
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    environment:
+      discovery.type: "single-node"
+    ports:
+      - "9200:9200"
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+
 networks:
-  webnet:
-  dbnet:
+  db:
+  php:

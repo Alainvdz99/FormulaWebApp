@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8"/>
+        <link href="https://fonts.googleapis.com/css?family=Squada+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/login.css') }}">
+    </head>
+<body>
+    {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="https://vignette.wikia.nocookie.net/fightclubchampfanom/images/c/c4/Michael_Schumacher.png/revision/latest?cb=20190620155818" alt="">
+                </div>
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

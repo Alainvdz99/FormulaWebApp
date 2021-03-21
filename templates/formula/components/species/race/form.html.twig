@@ -1,1 +1,50 @@
-{{ form(form) }}
+<div class="form">
+    <h1>Race aanmaken</h1>
+    <div class="form__container">
+        {{ form_start(form) }}
+
+        {{ form_errors(form) }}
+
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.name, {
+                'attr' : {
+                    'class' : 'input100',
+                    'placeholder' : 'Dutch GP'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.location, {
+                'attr' : {
+                    'class' : 'input100',
+                    'placeholder' : 'Nederland'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.raceDateStart, {
+                'attr' : {
+                    'class' : 'input100',
+                    'placeholder' : 'dd-mm-jjjj'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.raceDateEnd, {
+                'attr' : {
+                    'class' : 'input100',
+                    'placeholder' : 'dd-mm-jjjj'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+        <div class="form__action">
+            {{ form_row(form.save, {
+                'attr' : {
+                    'class' : 'btn-blue'
+                }}) }}
+        </div>
+        {{ form_row(form.save) }}
+        {{ form_end(form) }}
+    </div>
+</div>

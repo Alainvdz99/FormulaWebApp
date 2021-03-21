@@ -24,3 +24,9 @@ function close() {
         driverModal.removeClass('show');
     });
 }
+
+$(document).keyup(function(e) {
+    if (e.keyCode == 27) {
+        driverModal.removeClass('show');
+    }
+});

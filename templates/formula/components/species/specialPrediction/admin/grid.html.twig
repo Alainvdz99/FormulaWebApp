@@ -17,7 +17,7 @@
             <tbody class="s-specialPrediction__table__body">
             {% for score in form.specialPredictionResults %}
                     <tr>
-                        <td>{{ score.vars.value.specialPrediction.createdBy.fullname|upper|slice(0, 3) }}</td>
+                        <td>{{ score.vars.value.specialPrediction.createdBy.username|upper|slice(0, 3) }}</td>
                         <td>{{ score.vars.value.specialPrediction.prediction }}</td>
                         <td>
                             {{ form_widget(score) }}
@@ -27,7 +27,7 @@
             </tbody>
         </table>
         <div class="s-specialPrediction__actions">
-            {{ form_widget(form.save) }}
+            {{ form_widget(form.save, {'attr': {'class': 'btn-blue'}}) }}
         </div>
 
     {{ form_end(form) }}

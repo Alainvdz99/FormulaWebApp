@@ -27,6 +27,14 @@
       }
     }
   }
+  &__actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    > button {
+      font-size: 16px;
+    }
+  }
 }
 
 $s : 480px;

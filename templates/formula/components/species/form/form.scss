@@ -1,0 +1,26 @@
+* {
+  box-sizing: initial !important;
+}
+
+.form {
+  padding: 2rem 1rem;
+  > h1 {
+    margin-bottom: 4rem;
+  }
+  &__container {
+    width: 25rem;
+  }
+  &__wrapper {
+    label {
+      padding-left: 1rem;
+      padding-bottom: 1rem;
+      font-family: 'Squada One', cursive;
+      font-size: 30px;
+    }
+  }
+  &__action {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -18,7 +18,7 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
         <div class="s-driverGrid__actions">
             <a class="btn-red" href="{{ path('create_driver') }}">+ Add driver</a>
             <a class="btn-blue" href="{{ path('create_team') }}">+ Add team</a>

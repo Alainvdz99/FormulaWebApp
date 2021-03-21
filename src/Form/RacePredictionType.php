@@ -18,37 +18,40 @@ class RacePredictionType extends AbstractType
     {
         $builder
             ->add('fastestTime', TextType::class, [
-                'label' => 'racePrediction.fastestTime.label',
+                'label' => 'Snelste tijd kwalificatie',
             ])
             ->add('fastestDriverInQuali', EntityType::class, [
                 'class' => Driver::class,
-                'label' => 'racePrediction.fastestDriverInQuali.label'
+                'label' => 'Snelste coureur kwalificatie'
             ])
             ->add('fastestDriverInRace', EntityType::class, [
                 'class' => Driver::class,
-                'label' => 'racePrediction.fastestDriverInRace.label'
+                'label' => 'Snelste coureur race'
             ])
             ->add('firstPlaceDriver', EntityType::class, [
                 'class' => Driver::class,
-                'label' => 'racePrediction.firstPlaceDriver.label'
+                'label' => '1e plaats'
             ])
             ->add('secondPlaceDriver', EntityType::class, [
                 'class' => Driver::class,
-                'label' => 'racePrediction.secondPlaceDriver.label'
+                'label' => '2e plaats'
             ])
             ->add('thirdPlaceDriver', EntityType::class, [
                 'class' => Driver::class,
-                'label' => 'racePrediction.thirdPlaceDriver.label'
+                'label' => '3e plaats'
             ])
             ->add('tierMax', ChoiceType::class, [
                 'choices'  => [
                     'Rood' => 'Rood',
                     'Geel' => 'Geel',
                     'Wit'  => 'Wit',
+                    'Blauw'  => 'Blauw',
+                    'Groen'  => 'Groen',
                 ],
+                'label' => 'Band Max'
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'racePrediction.save.label'
+                'label' => 'Opslaan'
             ])
         ;
     }

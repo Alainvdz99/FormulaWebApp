@@ -1,0 +1,26 @@
+<div class="form">
+    <h1>Gebruiker aanmaken</h1>
+    <div class="form__container">
+        {{ form_start(form) }}
+
+        {{ form_errors(form) }}
+
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.email, {
+                'attr' : {
+                    'class' : 'input100',
+                    'placeholder' : 'mail@gmail.com'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
+
+        <div class="form__action">
+            {{ form_row(form.save, {
+                'attr' : {
+                    'class' : 'btn-blue'
+                }}) }}
+        </div>
+        {{ form_row(form.save) }}
+        {{ form_end(form) }}
+    </div>
+</div>

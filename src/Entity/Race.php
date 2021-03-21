@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RaceRepository")
@@ -175,19 +176,15 @@ class Race
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function isAvailable()
     {
         $isAvailable = false;
 
-        $startDate =  new \DateTime($this->getRaceDateStart());
-        $endDate =  new \DateTime($this->getRaceDateEnd());
-        $currentDate = new \DateTime('now');
-
-//        $startDate =  $startDate->format("d-m-Y");
-//        $endDate =  $endDate->format("d-m-Y");
-//        $currentDate = $currentDate->format("d-m-Y");
+        $startDate =  new DateTime($this->getRaceDateStart());
+        $endDate =  new DateTime($this->getRaceDateEnd());
+        $currentDate = new DateTime('now');
 
         if ($startDate <= $currentDate && $endDate >= $currentDate)
         {

@@ -19,7 +19,14 @@
       tr {
         td {
           padding: 1rem;
+        }
 
+      }
+      &__action {
+        text-align: center;
+        > a {
+          border-radius: 0.25rem;
+          padding: 6px 10px;
         }
       }
       tr:nth-child(odd) {

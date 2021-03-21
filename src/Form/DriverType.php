@@ -19,23 +19,23 @@ class DriverType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'driver.name.label'
+                'label' => 'Naam'
             ])
             ->add('team', EntityType::class, [
                 'class' => Team::class,
-                'label' => 'driver.team.label'
+                'label' => 'Team'
             ])
             ->add('avatarFile', VichFileType::class , [
-                'label' => 'driver.file.label'
+                'label' => 'Avatar'
             ])
             ->add('modalAvatarFile', VichFileType::class , [
-                'label' => 'driver.modal.file.label'
+                'label' => 'Modal Avatar'
             ])
             ->add('bio', TextareaType::class, [
-                'label' => 'driver.bio.label'
+                'label' => 'Bio'
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'driver.save.label'
+                'label' => 'Opslaan'
             ])
         ;
     }

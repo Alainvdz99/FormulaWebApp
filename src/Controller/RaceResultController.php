@@ -80,7 +80,7 @@ class RaceResultController extends AbstractController
         }
 
         return $this->render(
-            'formula/path/driver/create.html.twig', [
+            'formula/path/race/racePrediction/create.html.twig', [
                 'form' => $form->createView(),
                 'raceResult' => $raceResult,
                 'raceId' => $race

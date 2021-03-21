@@ -2,17 +2,23 @@ $s : 480px;
 $m : 768px;
 $l : 1024px;
 $xl : 1250px;
+$red : #e10600;
+$black : #15151e;
 
 body {
     margin: 0;
 }
 
-body, a, p, span, div, table, td {
+body, a, p, span, div, table, td, button {
     font-family: Poppins, Helvetica, Arial, system-ui, sans-serif;
 }
 
 h1, h2, h3, h4 {
     font-family: 'Squada One', cursive;
+}
+
+button {
+    font-size: 16px;
 }
 
 h1 {
