@@ -8,9 +8,6 @@
             <td>Start race week</td>
             <td>Einde race week</td>
             <td>Race voorspelling</td>
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
-                <td>Race uitslag</td>
-            {% endif %}
         </tr>
         </thead>
         <tbody class="s-raceGrid__table__body">
@@ -26,14 +23,12 @@
                         raceId : race.id
                     }) }}"><i class="fa fa-edit"></i></a>
                     {% endif %}
-                </td>
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') and race.isActive and not raceResult %}
-                <td>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                     <a href="{{ path('race_result_create', {
                         raceId : race.id
                     }) }}">Invullen!</a>
+                    {% endif %}
                 </td>
-                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

@@ -1,3 +1,3 @@
 swiftmailer:
-    url: 'smtp://mailhog:1025'
+    url: '%env(MAILER_URL)%'
     spool: { type: 'memory' }

@@ -7,6 +7,8 @@ parameters:
     app.path.driver.avatar: /uploads/images/drivers
     app.path.team.race.car: /uploads/images/raceCars
     app.path.driver.modal: /uploads/images/modal
+    sender.address: '%env(MAILER_SENDER)%'
+
 
 services:
     # default configuration for services in *this* file

@@ -16,10 +16,10 @@ class SpecialPredictionType extends AbstractType
     {
         $builder
             ->add('prediction', TextType::class, [
-                'label' => 'specialPrediction.prediction.label'
+                'label' => 'Voorspelling'
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'racePrediction.save.label'
+                'label' => 'Opslaan'
             ])
         ;
     }

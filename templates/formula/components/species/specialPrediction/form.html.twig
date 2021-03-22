@@ -1,11 +1,26 @@
-<div id="messageForm"></div>
+<div class="form">
+    <h1>Speciale voorspelling aanmaken</h1>
+    <div class="form__container">
+        {{ form_start(form) }}
 
-{{ form_start(form,
-    { 'attr' :
-        { 'class' : 'special_prediction_form' },
-        'action' : path('special_prediction_create'),
-    }) }}
+        {{ form_errors(form) }}
 
-{{ form_widget(form.prediction) }}
+        <div class="wrap-input100 validate-input form__wrapper" data-validate = "Valid email is required: ex@abc.xyz">
+            {{ form_row(form.prediction, {
+                'attr' : {
+                    'class' : 'input100',
+                    'placeholder' : 'Max wint de race'
+                }}) }}
+            <span class="focus-input100"></span>
+        </div>
 
-{{ form_end(form) }}
+        <div class="form__action">
+            {{ form_row(form.save, {
+                'attr' : {
+                    'class' : 'btn-red'
+                }}) }}
+        </div>
+        {{ form_row(form.save) }}
+        {{ form_end(form) }}
+    </div>
+</div>

@@ -1,9 +1,16 @@
 {% extends 'formula/base.html.twig' %}
 
 {% block content %}
-    {% include 'formula/components/species/specialPrediction/form.html.twig' %}
+    <div class="f-container">
+        {% include 'formula/components/species/specialPrediction/form.html.twig' %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('build/specialPrediction.js') }}"></script>
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ asset('build/specialPrediction.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/login.css') }}">
 {% endblock %}
