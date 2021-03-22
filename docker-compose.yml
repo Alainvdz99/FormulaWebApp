@@ -24,9 +24,11 @@ services:
       - ./logs/symfony:/var/www/symfony/var/log:cached
     depends_on:
       - db
+      - mailhog
     networks:
       - db
       - php
+      - mailhog
 
   nginx:
     container_name: nginx
@@ -56,7 +58,10 @@ services:
     ports:
       - 1025:1025 # smtp server
       - 8025:8025 # web ui
+    networks:
+      - mailhog
 
 networks:
   db:
   php:
+  mailhog:
