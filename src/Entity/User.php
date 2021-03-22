@@ -29,7 +29,7 @@ class User extends BaseUser
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=3)
+     * @ORM\Column(type="string", length=3,  nullable=true)
      */
     private $shortName;
 
